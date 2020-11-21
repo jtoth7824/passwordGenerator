@@ -7,19 +7,23 @@ function writePassword() {
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
-
 }
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
-
+/* Generate password function */
 function generatePassword() {
 
+  /* global variables for generatePassword function */
   var pwdLength = 0;
-  var pwdArray = [];
   var rndNumber = 0;
   var fullArray = [];
+  var pwdString = "";
+  var lwrCase = false;
+  var uprCase = false;
+  var numeric = false;
+  var special = false;
   
   /* Define the arrays of characters to choose from */
   var num = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -29,84 +33,44 @@ function generatePassword() {
 
   /* User needs to choose length of password */
   do {
-    pwdLength = prompt("Choose length of password of at least 8 characters up to 128 charactoers");
+    pwdLength = parseInt(prompt("Choose length of password of at least 8 characters up to 128 characters."));
   } while (pwdLength < 8 || pwdLength > 128);
 
-  var lwrCase = 'n';
-  var uprCase = 'n';
-  var numeric = 'n';
-  var special = 'n';
-
   /* User needs to select which type of characters are in the password */
-  while (lwrCase === 'n' && uprCase === 'n' && numeric === 'n' && special === 'n') {
-    alert("Password needs to contain at least one of the 4 character types!!");
-    lwrCase = prompt("Should password contain lowercase characters? (y/n)").toLowerCase();
-    uprCase = prompt("Should password contain uppercase characters? (y/n)").toLowerCase();
-    numeric = prompt("Should passowrd contain numeric value? (y/n)").toLowerCase();
-    special = prompt("Should password contain special characters? (y/n)").toLowerCase();
-
+  while (!lwrCase && !uprCase && !numeric && !special) {
+/*    alert("Password needs to contain at least one of the 4 character types!!");*/
+    lwrCase = confirm("Should password contain lowercase characters?");
+    uprCase = confirm("Should password contain uppercase characters?");
+    numeric = confirm("Should password contain numeric values?");
+    special = confirm("Should password contain special characters?");
+    if (!lwrCase && !uprCase && !numeric && !special) {
+      alert("Password needs to contain at least one of the 4 character types!!");
+    }
   }
 
-  /* decide which type of characters need to be in built array */
-  if (lwrCase === 'y') {
-    fullArray = fullArray.concat(lower);
-  }
-  if (uprCase === 'y') {
-    fullArray = fullArray.concat(upper);
-  }
-  if (numeric === 'y') {
-    fullArray = fullArray.concat(num);
-  }
-  if (special === 'y') {
-    fullArray = fullArray.concat(spcl);
-  }
+/* call build array function once for each character type */
+  fullArray = buildArray(lwrCase, lower, fullArray);
+  fullArray = buildArray(uprCase, upper, fullArray);
+  fullArray = buildArray(numeric, num, fullArray);
+  fullArray = buildArray(special, spcl, fullArray);
 
-  /* randomly pick character from built array and push to new array of selected characters */
+  /* randomly pick character from built array and concatenate to end of password string */
   for (var j = 0; j < pwdLength; j++) {
     rndNumber = Math.floor(Math.random() * fullArray.length);
-    pwdArray.push(fullArray[rndNumber]);
+    pwdString = pwdString + fullArray[rndNumber];
   }
-
-  var pwdString = "";
-
-  /* convert array to a string */
-  for (var i = 0; i < pwdArray.length; i++) {
-    pwdString = pwdString + pwdArray[i];
-  }
-
+  /* return password string to caller */
   return password = pwdString;
-
-
 }
 
-/*  whichSpecial = Math.floor(Math.random() * 4);
+/* join arrays together if user picked those type of characters */
+function buildArray(userChoice, charArray, fullArray) {
 
-
-  rndNumber = Math.floor(Math.random() * 10) + 47;
-  var myString = String.fromCharCode(rndNumber);
-  pwdArray.push(myString);
-
-  rndNumber = Math.floor(Math.random() * 10) + 64;
-  myString = String.fromCharCode(rndNumber);
-  pwdArray.push(myString);
-
-  rndNumber = Math.floor(Math.random() * 26) + 96;
-  myString = String.fromCharCode(rndNumber);
-  pwdArray.push(myString);
-
-  rndNumber = Math.floor(Math.random() * 16) + 31;
-  myString = String.fromCharCode(rndNumber);
-  pwdArray.push(myString);
-
-  rndNumber = Math.floor(Math.random() * 7) + 57;
-  myString = String.fromCharCode(rndNumber);
-  pwdArray.push(myString);
-
-  rndNumber = Math.floor(Math.random() * 6) + 90;
-  myString = String.fromCharCode(rndNumber);
-  pwdArray.push(myString);
-
-  rndNumber = Math.floor(Math.random() * 4) + 122;
-  myString = String.fromCharCode(rndNumber);
-  pwdArray.push(myString);
-*/
+  /* check if user picked character type to include */
+  if (userChoice) {
+    /* join arrays together */
+    fullArray = fullArray.concat(charArray);
+  }
+  /* return newly built array to caller */
+  return fullArray;
+}
