@@ -16,7 +16,7 @@ generateBtn.addEventListener("click", writePassword);
 function generatePassword() {
 
   /* global variables for generatePassword function */
-  var pwdLength = 0;
+  var pwdLength = "";
   var rndNumber = 0;
   var fullArray = [];
   var pwdString = "";
@@ -24,6 +24,7 @@ function generatePassword() {
   var uprCase = false;
   var numeric = false;
   var special = false;
+  var inputLen;
   
   /* Define the arrays of characters to choose from */
   var num = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -32,9 +33,11 @@ function generatePassword() {
   var spcl = [" ", "!", '"', "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "\\", "]", "^", "_", "`", "{", "|", "}", "~"];
 
   /* User needs to choose length of password */
-  do {
-    pwdLength = parseInt(prompt("Choose length of password of at least 8 characters up to 128 characters."));
-  } while (pwdLength < 8 || pwdLength > 128);
+  while (pwdLength < 8 || pwdLength > 128 || isNaN(pwdLength)) {
+    inputLen = prompt("Choose length of password of at least 8 characters up to 128 characters.");
+    /* Check if input is truly an Integer number */
+    pwdLength = filterInt(inputLen);
+  }
 
   /* User needs to select which type of characters are in the password */
   while (!lwrCase && !uprCase && !numeric && !special) {
@@ -73,4 +76,14 @@ function buildArray(userChoice, charArray, fullArray) {
   }
   /* return newly built array to caller */
   return fullArray;
+}
+
+/* regular expression function that parses string to see if integer */
+/* This function was found on developer.mozilla.org */
+function filterInt(value) {
+  if (/^[-+]?(\d+|Infinity)$/.test(value)) {
+    return Number(value)
+  } else {
+    return NaN
+  }
 }
