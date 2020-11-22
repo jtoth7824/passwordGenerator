@@ -25,7 +25,7 @@ function generatePassword() {
   var numeric = false;
   var special = false;
   var inputLen;
-  
+
   /* Define the arrays of characters to choose from */
   var num = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
   var upper = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
@@ -41,7 +41,7 @@ function generatePassword() {
 
   /* User needs to select which type of characters are in the password */
   while (!lwrCase && !uprCase && !numeric && !special) {
-/*    alert("Password needs to contain at least one of the 4 character types!!");*/
+    /*    alert("Password needs to contain at least one of the 4 character types!!");*/
     lwrCase = confirm("Should password contain lowercase characters?");
     uprCase = confirm("Should password contain uppercase characters?");
     numeric = confirm("Should password contain numeric values?");
@@ -51,7 +51,7 @@ function generatePassword() {
     }
   }
 
-/* call build array function once for each character type */
+  /* call build array function once for each character type */
   fullArray = buildArray(lwrCase, lower, fullArray);
   fullArray = buildArray(uprCase, upper, fullArray);
   fullArray = buildArray(numeric, num, fullArray);
