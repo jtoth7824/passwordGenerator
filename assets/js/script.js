@@ -42,10 +42,10 @@ function generatePassword() {
   /* User needs to select which type of characters are in the password */
   while (!lwrCase && !uprCase && !numeric && !special) {
     /*    alert("Password needs to contain at least one of the 4 character types!!");*/
-    lwrCase = confirm("Should password contain lowercase characters?");
-    uprCase = confirm("Should password contain uppercase characters?");
-    numeric = confirm("Should password contain numeric values?");
-    special = confirm("Should password contain special characters?");
+    lwrCase = confirm("Should password contain lowercase characters? \n OK = Yes, Cancel = No");
+    uprCase = confirm("Should password contain uppercase characters? \n OK = Yes, Cancel = No");
+    numeric = confirm("Should password contain numeric values? \n OK = Yes, Cancel = No");
+    special = confirm("Should password contain special characters? \n OK = Yes, Cancel = No");
     if (!lwrCase && !uprCase && !numeric && !special) {
       alert("Password needs to contain at least one of the 4 character types!!");
     }
