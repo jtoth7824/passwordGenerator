@@ -30,7 +30,7 @@ The following is a picture of the application after generating an 8 character pa
 
 Direct link to repository:  https://github.com/jtoth7824/passwordGenerator
 
-Direct link to Code Refactor webpage:  https://jtoth7824.github.io/passwordGenerator/
+Direct link to Password Generator webpage:  https://jtoth7824.github.io/passwordGenerator/
 
 ## Support and contact details
 
